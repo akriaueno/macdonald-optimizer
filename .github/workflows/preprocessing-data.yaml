@@ -9,15 +9,14 @@ jobs:
         run: |
           ./scripts/get_data.sh
       - name: Count changes
+        id: changes
         run: |
           git add -N .
-          # echo "{count}={$(git diff --name-only | wc -l)}" >> $GITHUB_STATE
-          echo "{count}={1}" >> $GITHUB_STATE
+          echo "{count}={$(git diff --name-only | wc -l)}" >> $GITHUB_OUTPUT
       - name: "git commit & push"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          echo ${{ env.count }}
           eval "$(ssh-agent)"
           ssh-add - <<< $SSH_PRIVATE_KEY
           git config user.name  "action"
@@ -25,4 +24,4 @@ jobs:
           git add public/data
           git commit -m "fetch data $(date -u +'%Y-%m-%d %H:%M:%S %Z')"
           git push
-        if: ${{ env.count }} > 0
+        if: steps.changes.outputs.count > 0
