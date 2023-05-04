@@ -25,7 +25,6 @@ jobs:
         run: |
           eval "$(ssh-agent)"
           ssh-add - <<< $SSH_PRIVATE_KEY
-          git fetch origin release
           git checkout release
           git merge main --no-edit
           git push origin release
