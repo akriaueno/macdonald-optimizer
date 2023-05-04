@@ -15,6 +15,7 @@ jobs:
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
       - name: "git commit & push"
         run: |
+          eval "$(ssh-agent)"
           ssh-add - <<< ${{ secrets.SSH_PRIVATE_KEY }}
           git config user.name  "action"
           git config user.email "action@github.com"
