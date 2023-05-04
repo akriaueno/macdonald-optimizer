@@ -1,0 +1,101 @@
+{
+  "last_update": "2020/04/01",
+  "data": [
+    {
+      "nutrient_id": "1",
+      "category": "",
+      "name": "エネルギー",
+      "unit": "kcal",
+      "figure": "0",
+      "description": "<div><span>からだを動かすために必要</span>な要素。<br>性別、年代、活動量によって必要量は異なります。エネルギー摂取量と消費量が等しければ体重の変化はありません。食べ過ぎたら次の食事で調整するなど、<span>適量摂取</span>を心がけましょう。</div><div><span class='result__point-detail-title'>【エネルギーのもととなる栄養素】</span><br><span>たんぱく質、脂質、糖質</span><br>現代の日本人は脂質が多く、糖質が少ない傾向。<br>理想とされる PFC バランス(たんぱく質 15%、脂質 25%、糖質 60%)を心がけましょう。</div><div><span class='result__point-detail-title'>【不足】</span>やせ、低栄養<br><span class='result__point-detail-title'>【過剰】</span>肥満、生活習慣病</div>"
+    },
+    {
+      "nutrient_id": "3",
+      "category": "",
+      "name": "たんぱく質",
+      "unit": "g",
+      "figure": "1",
+      "description": "<div><span>血液や筋肉、骨などからだを作り、エネルギーにもなる</span>栄養素。<br><span>免疫機能(病気やケガに対する抵抗力や治癒力など)を高める</span>働きがあるため、1食につき主菜1皿は食べるようにしましょう。</div><div><span class='result__point-detail-title'>【たんぱく質が含まれる食品】</span><br><span>動物性:肉、魚介類、卵、牛乳、乳製品</span><br><span>植物性:大豆</span><br>動物性、植物性の両方から摂取するのが理想。</div><div><span class='result__point-detail-title'>【不足】</span>免疫力や抵抗力の低下、筋力の低下<br><span class='result__point-detail-title'>【過剰】</span>肥満、腎臓への負担</div><div><span>成長期</span>は1日4~5皿が目安。<span>中高年期</span>はとり過ぎに注意し、<span>老年期</span>は必要量をとれるように心がけましょう。</div>"
+    },
+    {
+      "nutrient_id": "4",
+      "category": "",
+      "name": "脂質",
+      "unit": "g",
+      "figure": "1",
+      "description": "<div>効率のよい<span>エネルギー源</span>。<span>ホルモンや細胞の材料</span>となる栄養素。<br>脂溶性ビタミン(とくにビタミン A)の吸収を助ける働きも。<br>脳細胞の材料になるので、<span>脳の老化防止</span>のためにもきちんと必要量を摂取しましょう。</div><div><span class='result__point-detail-title'>【脂質が含まれる食品】</span><br>調理油、肉や魚の脂身、マヨネーズ、バター、ラード、ドレッシングなど</div><div><span class='result__point-detail-title'>【不足】</span>便秘、肌の乾燥、空腹感<br><span class='result__point-detail-title'>【過剰】</span>肥満、生活習慣病</div><div><span>全世代に必要ですが、とり過ぎてしまいがち</span>。1食に油脂を使った料理が重ならない、1日に2食以上揚げ物を食べない、など<span>適量摂取</span>を心がけましょう。</div>"
+    },
+    {
+      "nutrient_id": "5",
+      "category": "",
+      "name": "炭水化物",
+      "unit": "g",
+      "figure": "1",
+      "description": "<div>糖質と食物繊維で構成され、糖質は<span>からだを動かすためのエネルギー源</span>であり、<span>脳や神経系にとっては唯一のエネルギー源</span>。<span>からだの機能を調整</span>する作用も。<br>1日に消費するエネルギーの 50~65%が必要で、<span>成長期に制限してしまうと成長に影響が出るおそれ</span>があります。<br><span>自分の両手に乗るくらいのご飯の量を目安にして、毎食</span>食べましょう。</div><div><span class='result__point-detail-title'>【炭水化物が含まれる食品】</span><br>ご飯、パン、めん類、いも類</div><div><span class='result__point-detail-title'>【不足】</span>からだや脳の機能低下、集中力の低下<br><span class='result__point-detail-title'>【過剰】</span>肥満、生活習慣病</div><div><span>ジュースに含まれる砂糖などから、知らぬ間にとり過ぎていることもあります</span>。適量摂取を心がけましょう。</div>"
+    },
+    {
+      "nutrient_id": "8",
+      "category": "無機質（ミネラル）",
+      "name": "カルシウム",
+      "unit": "mg",
+      "figure": "0",
+      "description": "<div><span>骨や歯を作る</span>ために必要な栄養素。<span>神経の興奮を鎮める、筋肉の収縮をスムーズにする</span>働きも。</div><div><span class='result__point-detail-title'>【カルシウムが含まれる食品】</span><br>牛乳、チーズ、煮干やいわし、大豆製品、青菜類、ごまなど</div><div><span class='result__point-detail-title'>【不足】</span>骨や歯の強度低下、骨粗しょう症、精神不安定<br><span class='result__point-detail-title'>【過剰】</span>ふだんの食事でとり過ぎる心配はほとんどありません。</div><div><span>成長期には最も必要</span>です。成人女性は<span>骨粗しょう症予防</span>のために、不足しないようにしましょう。</div>"
+    },
+    {
+      "nutrient_id": "10",
+      "category": "無機質（ミネラル）",
+      "name": "鉄",
+      "unit": "mg",
+      "figure": "1",
+      "description": "<div><span>からだの各器官に酸素を運び、からだ全体の機能を高める</span>栄養素。<span>血液細胞の材料</span>。</div><div><span class='result__point-detail-title'>【鉄が含まれる食品】</span><br>レバー、赤身の肉、魚、貝類、卵、ひじき、大豆や納豆、ごま、アーモンドなど</div><div><span class='result__point-detail-title'>【不足】</span>貧血、抵抗力の低下、疲れやすくなる<br><span class='result__point-detail-title'>【過剰】</span>ふだんの食事でとり過ぎる心配はほとんどありません。</div><div><span>成長期には最も必要</span>です。<span>スポーツをする人や妊産婦・授乳中の女性</span>も十分に摂取し、貧血にならないようにしましょう。</div>"
+    },
+    {
+      "nutrient_id": "11",
+      "category": "ビタミン",
+      "name": "ビタミンＡ",
+      "unit": "μg",
+      "figure": "0",
+      "description": "<div><span>目や消化器官などの粘膜の形成</span>や、<span>正常な働きを促す</span>栄養素。風邪ウイルスへの<span>免疫機能を高める</span>働きも。<br><span>とくに成長期は粘膜を強くするために必要</span>です。</div><div><span class='result__point-detail-title'>【ビタミン A が含まれる食品】</span><br>動物性:レバー、うなぎ、卵黄など<br>植物性:緑黄色野菜(βカロテンとして含まれ、体内でビタミン A に変わる)</div><div><span class='result__point-detail-title'>【不足】</span>視力、目の機能低下、風邪、肌の乾燥<br><span class='result__point-detail-title'>【過剰】</span>妊娠初期は胎児への影響が高まるため、とくに注意が必要</div>"
+    },
+    {
+      "nutrient_id": "12",
+      "category": "ビタミン",
+      "name": "ビタミンＢ１",
+      "unit": "mg",
+      "figure": "2",
+      "description": "<div><span>糖質(炭水化物)をエネルギーに変える</span>働きを持つ栄養素。<span>からだや脳、神経の活動を活発化させる</span>ために重要なビタミンです。<br>水溶性で体内に留めておくことができないため、<span>毎日こまめにとる</span>必要があります。</div><div><span class='result__point-detail-title'>【ビタミン B1が含まれる食品】</span><br>豚肉、うなぎ、たらこ、紅鮭、大豆、枝豆、胚芽、胚芽米、玄米など</div><div><span class='result__point-detail-title'>【不足】</span>疲れやすい、末梢神経への影響<br><span class='result__point-detail-title'>【過剰】</span>とり過ぎた場合は体外へ排出されてしまうため心配ありません。</div>"
+    },
+    {
+      "nutrient_id": "13",
+      "category": "ビタミン",
+      "name": "ビタミンＢ２",
+      "unit": "mg",
+      "figure": "2",
+      "description": "<div><span>脂質をエネルギーに変える</span>働きを持つ栄養素。脂質の代謝を促し、糖質(炭水化物)の代謝にも関わり、<span>成長促進作用</span>があります。<br>血中の脂質の酸化を防ぐ働きがあるため、<span>脂質異常症(コレステロール値や中性脂肪値が高い状態)の予防</span>にもつながります。</div><div><span class='result__point-detail-title'>【ビタミン B2が含まれる食品】</span><br>レバー、うなぎ、青背魚(あおせざかな)、納豆、卵、牛乳、チーズなど</div><div><span class='result__point-detail-title'>【不足】</span>肌荒れ、口内炎、脂質異常症<br><span class='result__point-detail-title'>【過剰】</span>とり過ぎた場合は体外へ排出されてしまうため心配ありません。</div>"
+    },
+    {
+      "nutrient_id": "15",
+      "category": "ビタミン",
+      "name": "ビタミンＣ",
+      "unit": "mg",
+      "figure": "0",
+      "description": "<div><span>血管や皮膚、粘膜、骨を丈夫にする</span>働きを持つ栄養素。<span>免疫力を高め、ストレスに強いからだ作り</span>に欠かせません。コラーゲンを作る材料、肌の美白効果など、<span>美容</span>にも働きます。<br><span>ストレスがあると消費しやすい</span>ので、毎日の食事での摂取を心がけましょう。</div><div><span class='result__point-detail-title'>【ビタミン C が含まれる食品】</span><br>いちご、キウイフルーツ、柑橘類の果物、ピーマン、ブロッコリー、かぼちゃ、ほうれん草など</div><div><span class='result__point-detail-title'>【不足】</span>風邪、血管の機能低下<br><span class='result__point-detail-title'>【過剰】</span>とり過ぎた場合は体外へ排出されてしまうため心配ありません。</div>"
+    },
+    {
+      "nutrient_id": "17",
+      "category": "",
+      "name": "食物繊維",
+      "unit": "g",
+      "figure": "1",
+      "description": "<div><span>整腸作用</span>を持つ栄養素。そしゃく回数を増やすため、満腹感が得やすく<span>肥満予防効果</span>も。<br>水溶性:主に体内から発がん物質、余分なコレステロール、糖質、塩分等を排出する。<span>血管の掃除</span>役。<span>生活習慣病の予防・改善</span>効果。<br>不溶性:主に腸内で膨らみ、腸を刺激することで便通を整える。<span>腸の掃除</span>役。</div><div><span class='result__point-detail-title'>【食物繊維が含まれる食品】</span><br><span>水溶性</span>:海藻類、オクラ、長芋<br><span>不溶性</span>:豆類、さつまいも<br><span>両方</span>:ごぼう、きのこ類</div><div><span class='result__point-detail-title'>【不足】</span>便秘、生活習慣病<br><span class='result__point-detail-title'>【過剰】</span>ふだんの食事でとり過ぎる心配はほとんどありません。</div><div><span>便秘気味の人や生活習慣病の人</span>は積極的にとりましょう。</div>"
+    },
+    {
+      "nutrient_id": "18",
+      "category": "",
+      "name": "食塩相当量",
+      "unit": "g",
+      "figure": "1",
+      "description": "<div>食塩に含まれる<span>ナトリウム</span>は、カリウムとバランスをとり、<span>心筋などの筋肉の収縮をスムーズにする働き</span>を持つ。<br>※食塩相当量(g)は食塩(NaCl)の構造式からナトリウム量(g)に 2.54 を掛けた計算で表されます。</div><div><span class='result__point-detail-title'>【食塩(ナトリウム)が含まれる食品】</span><br>塩、しょうゆ、漬物、塩辛、梅干し、みそなどの加工品</div><div><span class='result__point-detail-title'>【不足】</span>熱中症、けいれん、足のつり<br><span class='result__point-detail-title'>【過剰】</span>血圧上昇、動脈硬化の促進、胃がんのリスク上昇、むくみ、腎臓への負担</div><div><span>炎天下での重労働、激しいスポーツをする人は適度に摂取</span>する必要があります。<span>一般的にとり過ぎの傾向</span>にあるため、汗をかいたからといって<span>過剰に摂取する必要はありません</span>。</div>"
+    }
+  ]
+}
