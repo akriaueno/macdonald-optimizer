@@ -16,9 +16,6 @@ jobs:
           set -x
           git add -N .
           echo "count=$(git diff --name-only | wc -l)" >> $GITHUB_OUTPUT
-      - uses: actions/checkout@v3
-        with:
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: "git commit & push"
         run: |
           git config user.name  "action"
