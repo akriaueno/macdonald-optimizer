@@ -15,8 +15,8 @@ jobs:
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v1
-        with: # shimataro/ssh-key-actionに渡すパラメーター
-          key: ${{ secrets.SSH_PRIVATE_KEY }} # 必須
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           name: id_ed25519
           known_hosts: "just-a-placeholder-so-we-dont-get-errors"
       - name: "git commit & push"
