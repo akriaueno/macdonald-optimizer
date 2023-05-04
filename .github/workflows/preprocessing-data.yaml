@@ -13,7 +13,7 @@ jobs:
         run: |
           set -x
           git add -N .
-          echo "{count}={$(git diff --name-only | wc -l)}" >> $GITHUB_OUTPUT
+          echo "count=$(git diff --name-only | wc -l)" >> $GITHUB_OUTPUT
       - name: "git commit & push"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
