@@ -23,7 +23,6 @@ jobs:
         run: |
           git config user.name  "action"
           git config user.email "action@github.com"
-          git add public/data
           git commit -m "fetch data $(date -u +'%Y-%m-%d %H:%M:%S %Z')"
           git push
         if: ${{ steps.changes.outputs.count > 0 }}
