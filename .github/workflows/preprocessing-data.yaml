@@ -14,9 +14,11 @@ jobs:
           git add -N .
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
       - name: "git commit & push"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           eval "$(ssh-agent)"
-          ssh-add - <<< ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-add - <<< $SSH_PRIVATE_KEY
           git config user.name  "action"
           git config user.email "action@github.com"
           git add public/data
