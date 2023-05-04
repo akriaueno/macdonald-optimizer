@@ -9,10 +9,9 @@ jobs:
         run: |
           ./scripts/get_data.sh
       - name: Count changes
-        id: changes
         run: |
           git add -N .
-          echo "::set-output name=count::$(git diff --name-only | wc -l)"
+          echo "{count}={$(git diff --name-only | wc -l)}" >> $GITHUB_STATE
       - name: "git commit & push"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -24,4 +23,4 @@ jobs:
           git add public/data
           git commit -m "fetch data $(date -u +'%Y-%m-%d %H:%M:%S %Z')"
           git push
-        if: steps.changes.outputs.count > 0
+        if: ${{ env.count }} > 0
