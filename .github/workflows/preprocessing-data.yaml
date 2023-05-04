@@ -5,14 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: test
+      - name: "get data"
         run: |
-          echo "test"
-      - name: "git commit"
+          ./scripts/get_data.sh
+      - name: "git commit & push"
         run: |
-          date > generated.txt
           git config user.name  "action"
           git config user.email "action@github.com"
-          git add .
+          git add public/data
           git commit -m "fetch data $(date -u +'%Y-%m-%d %H:%M:%S %Z')"
           git push
