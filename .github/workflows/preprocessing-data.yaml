@@ -5,8 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: "get data"
         run: |
           ./scripts/get_data.sh
@@ -15,6 +13,12 @@ jobs:
         run: |
           git add -N .
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
+      - name: "ssh setup"
+        run: |
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/id_ed25519
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - name: "git commit & push"
         run: |
           git config user.name  "action"
