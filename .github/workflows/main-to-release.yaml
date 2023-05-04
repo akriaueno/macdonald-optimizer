@@ -26,6 +26,7 @@ jobs:
           set -eux
           eval "$(ssh-agent)"
           ssh-add - <<< $SSH_PRIVATE_KEY
+          git log release --oneline
           git fetch origin release
           git checkout release
           git log main --oneline
