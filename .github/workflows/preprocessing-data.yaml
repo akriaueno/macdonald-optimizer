@@ -15,6 +15,7 @@ jobs:
         run: |
           set -x
           git add -N .
+          echo "$(git diff --name-only ./public/data | wc -l)"
           echo "count=$(git diff --name-only ./public/data | wc -l)" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v3
         with:
