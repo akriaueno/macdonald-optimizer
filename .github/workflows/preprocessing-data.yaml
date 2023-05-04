@@ -16,7 +16,7 @@ jobs:
       - name: "ssh setup"
         uses: webfactory/ssh-agent@v0.5.4
         with:
-          ssh-private-key: ${{ secrets.SSH_SECRET_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: "git commit & push"
         run: |
           git config user.name  "action"
