@@ -16,6 +16,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
+          echo ${{ env.count }}
           eval "$(ssh-agent)"
           ssh-add - <<< $SSH_PRIVATE_KEY
           git config user.name  "action"
