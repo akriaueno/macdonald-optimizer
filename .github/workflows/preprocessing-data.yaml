@@ -11,7 +11,8 @@ jobs:
       - name: Count changes
         run: |
           git add -N .
-          echo "{count}={$(git diff --name-only | wc -l)}" >> $GITHUB_STATE
+          # echo "{count}={$(git diff --name-only | wc -l)}" >> $GITHUB_STATE
+          echo "{count}={1}" >> $GITHUB_STATE
       - name: "git commit & push"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
