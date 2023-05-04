@@ -11,6 +11,7 @@ jobs:
       - name: Count changes
         id: changes
         run: |
+          set -x
           git add -N .
           echo "{count}={$(git diff --name-only | wc -l)}" >> $GITHUB_OUTPUT
       - name: "git commit & push"
