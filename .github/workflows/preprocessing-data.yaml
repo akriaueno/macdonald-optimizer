@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: "get data"
         run: |
           ./scripts/get_data.sh
@@ -15,11 +17,7 @@ jobs:
           git add -N .
           echo "count=$(git diff --name-only | wc -l)" >> $GITHUB_OUTPUT
       - name: "git commit & push"
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          eval "$(ssh-agent)"
-          ssh-add - <<< $SSH_PRIVATE_KEY
           git config user.name  "action"
           git config user.email "action@github.com"
           git add public/data
