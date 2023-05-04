@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ref: release
       - name: "get data"
         run: |
           ./scripts/get_data.sh
@@ -15,11 +15,13 @@ jobs:
         run: |
           set -x
           git add -N .
-          git diff --name-only ./public/data
-          echo "$(git diff --name-only ./public/data | wc -l)"
           echo "count=$(git diff --name-only ./public/data | wc -l)" >> $GITHUB_OUTPUT
       - name: "git commit & push"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
+          eval "$(ssh-agent)"
+          ssh-add - <<< $SSH_PRIVATE_KEY
           git config user.name  "action"
           git config user.email "action@github.com"
           git commit ./public/data -m "fetch data $(date -u +'%Y-%m-%d %H:%M:%S %Z')"
