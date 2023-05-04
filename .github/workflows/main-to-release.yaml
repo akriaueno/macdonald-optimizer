@@ -28,5 +28,7 @@ jobs:
           ssh-add - <<< $SSH_PRIVATE_KEY
           git fetch origin release
           git checkout release
+          git log main --oneline
+          git log release --oneline
           git merge main --no-edit
           git push origin release
