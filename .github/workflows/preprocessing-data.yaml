@@ -8,6 +8,11 @@ jobs:
       - name: "get data"
         run: |
           ./scripts/get_data.sh
+      - name: Count changes
+        id: changes
+        run: |
+          git add -N .
+          echo "::set-output name=count::$(git diff --name-only | wc -l)"
       - name: "git commit & push"
         run: |
           git config user.name  "action"
@@ -15,3 +20,4 @@ jobs:
           git add public/data
           git commit -m "fetch data $(date -u +'%Y-%m-%d %H:%M:%S %Z')"
           git push
+        if: steps.changes.outputs.count > 0
