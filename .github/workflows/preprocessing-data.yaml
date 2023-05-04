@@ -13,12 +13,9 @@ jobs:
         run: |
           git add -N .
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
-      - name: "ssh setup"
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: "git commit & push"
         run: |
+          ssh-add - <<< ${{ secrets.SSH_PRIVATE_KEY }}
           git config user.name  "action"
           git config user.email "action@github.com"
           git add public/data
