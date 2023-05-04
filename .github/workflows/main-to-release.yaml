@@ -1,0 +1,30 @@
+name: main-to-release
+on:
+  branches:
+    - main
+
+jobs:
+  merge_main_to_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Setup Git user
+        run: |
+          git config user.name  "action"
+          git config user.email "action@github.com"
+
+      - name: Merge main into release
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          eval "$(ssh-agent)"
+          ssh-add - <<< $SSH_PRIVATE_KEY
+          git fetch origin release
+          git checkout release
+          git merge main --no-edit
+          git push origin release
