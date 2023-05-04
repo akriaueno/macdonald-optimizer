@@ -18,9 +18,6 @@ jobs:
           git diff --name-only ./public/data
           echo "$(git diff --name-only ./public/data | wc -l)"
           echo "count=$(git diff --name-only ./public/data | wc -l)" >> $GITHUB_OUTPUT
-      - uses: actions/checkout@v3
-        with:
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: "git commit & push"
         run: |
           git config user.name  "action"
