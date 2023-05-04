@@ -13,14 +13,12 @@ jobs:
         run: |
           git add -N .
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v1
-        with:
-          private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          name: id_ed25519
-          known_hosts: "just-a-placeholder-so-we-dont-get-errors"
       - name: "git commit & push"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
+          eval "$(ssh-agent)"
+          ssh-add - <<< $SSH_PRIVATE_KEY
           git config user.name  "action"
           git config user.email "action@github.com"
           git add public/data
