@@ -15,6 +15,7 @@ jobs:
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
       - name: "ssh setup"
         run: |
+          mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
           eval $(ssh-agent -s)
           ssh-add ~/.ssh/id_ed25519
