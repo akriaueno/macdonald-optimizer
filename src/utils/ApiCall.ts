@@ -1,5 +1,5 @@
-const MENU_URL = "/data/product_menu.json";
-const NUTRIENT_URL = "/data/nutrient.json";
+const MENU_URL = "./data/product_menu.json";
+const NUTRIENT_URL = "./data/nutrient.json";
 
 const cacedApiCall = async (url: string, onError: () => void) => {
   try {
