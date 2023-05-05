@@ -26,12 +26,6 @@ jobs:
       - name: Build project
         run: yarn build
 
-  upload:
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Check dist exists
         run: |
           set -eux
