@@ -1,9 +1,9 @@
-name: Deploy to GitHub Pages
+name: build
 
 on:
-  push:
-    branches:
-      - release
+  workflow_run:
+    workflows: ["preprocessing-data", "main-to-release"]
+    types: [completed]
 
 jobs:
   deploy:
