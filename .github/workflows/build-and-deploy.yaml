@@ -35,6 +35,8 @@ jobs:
       - name: Check dist exists
         run: |
           set -eux
+          pwd
+          ls -l
           ls -l dist
       - name: Upload to GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v1
