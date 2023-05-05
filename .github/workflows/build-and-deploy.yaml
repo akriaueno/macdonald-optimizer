@@ -32,6 +32,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check dist exists
+        run: |
+          set -eux
+          ls -l dist
       - name: Upload to GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v1
         with:
