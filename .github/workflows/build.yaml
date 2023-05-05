@@ -6,7 +6,7 @@ on:
     types: [completed]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +16,7 @@ jobs:
           ref: release
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
 
@@ -26,11 +26,12 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - name: Setup Git user
-        run: |
-          git config user.name  "action"
-          git config user.email "action@github.com"
+  deploy:
+    needs: build
 
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
