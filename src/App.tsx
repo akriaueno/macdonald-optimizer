@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-      <h1>McDland's&trade; optimizer</h1>
+      <h1>McDonald's optimizer</h1>
       <div className="card">
         <FetchButton onClick={fetchData}></FetchButton>
       </div>
