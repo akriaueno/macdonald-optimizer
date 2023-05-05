@@ -12,13 +12,13 @@ jobs:
     steps:
       - name: Checkout release branch
         uses: actions/checkout@v3
-        with:
-          ref: release
+          with:
+            ref: release
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
-        with:
-          node-version: 16
+          with:
+            node-version: 16
 
       - name: Install dependencies
         run: yarn install
@@ -26,17 +26,29 @@ jobs:
       - name: Build project
         run: yarn build
 
-  deploy:
+  upload:
     needs: build
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: check
-        run: |
-          ls -al
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+      - name: Upload to GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v1
+          with:
+            path: dist
+
+ deploy:
+   needs: upload
+   permissions:
+     pages: write
+     id-token: write
+   environment:
+     name: github-pages
+     url: ${{ steps.deployment.outputs.page_url }}
+   
+   runs-on: ubuntu-latest
+   
+   steps:
+     - name: Deploy to GitHub Pages
+       id: deployment
+       uses: actions/deploy-pages@v1
