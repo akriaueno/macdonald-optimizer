@@ -27,10 +27,10 @@ jobs:
           set -eux
           eval "$(ssh-agent)"
           ssh-add - <<< $SSH_PRIVATE_KEY
-          git fetch origin release
+          git fetch origin release --unshallow
           git checkout release
-          git pull origin release
+          git pull
           git log main --oneline
           git log release --oneline
-          git merge main --no-edit
+          git merge --no-ff main -m "Auto-merge main into release"
           git push origin release

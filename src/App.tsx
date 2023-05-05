@@ -1,10 +1,10 @@
-import { useState } from "react";
+//import { useState } from "react";
 import "./App.css";
 import { FetchButton } from "./components/FetchButton";
 import { fetchMenu, fetchNutrient } from "./utils/ApiCall";
 
 function App() {
-  const [menu, setMenu] = useState({});
+  //  const [menu, setMenu] = useState({});
 
   const fetchData = async () => {
     console.log("Fetching menu");
