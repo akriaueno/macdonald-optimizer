@@ -1,22 +1,30 @@
-//import { useState } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
-import { FetchButton } from "./components/FetchButton";
+import { RunButton } from "./components/RunButton";
 import { fetchMenu, fetchNutrient } from "./utils/ApiCall";
 
 function App() {
-  //  const [menu, setMenu] = useState({});
+  const [menu, setMenu] = useState({});
+  const [nutorient, setNutorient] = useState({});
 
-  const fetchData = async () => {
-    console.log("Fetching menu");
-    const res = await Promise.all([fetchMenu(), fetchNutrient()]);
-    console.log({ res });
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const [menuJson, nutrientJson] = await Promise.all([
+        fetchMenu(),
+        fetchNutrient(),
+      ]);
+      setMenu(menuJson);
+      setNutorient(nutrientJson);
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
       <h1>McDonald's optimizer</h1>
       <div className="card">
-        <FetchButton onClick={fetchData}></FetchButton>
+        <RunButton onClick={() => {}}></RunButton>
       </div>
     </>
   );
