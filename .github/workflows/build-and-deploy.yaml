@@ -26,16 +26,29 @@ jobs:
       - name: Build project
         run: yarn build
 
-  deploy:
+  upload:
     needs: build
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: check
-        run: |
-          ls -al
-      - name: Deploy to GitHub Pages
+      - name: Upload to GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v1
           with:
             path: dist
+
+ deploy:
+   needs: upload
+   permissions:
+     pages: write
+     id-token: write
+   environment:
+     name: github-pages
+     url: ${{ steps.deployment.outputs.page_url }}
+   
+   runs-on: ubuntu-latest
+   
+   steps:
+     - name: Deploy to GitHub Pages
+       id: deployment
+       uses: actions/deploy-pages@v1
