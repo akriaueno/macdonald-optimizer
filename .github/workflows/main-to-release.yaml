@@ -32,5 +32,5 @@ jobs:
           git pull
           git log main --oneline
           git log release --oneline
-          git merge --no-ff master -m "Auto-merge main into release"
+          git merge --no-ff main -m "Auto-merge main into release"
           git push origin release
