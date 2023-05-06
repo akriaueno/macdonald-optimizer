@@ -3,10 +3,31 @@ import { useEffect } from "react";
 import "./App.css";
 import { RunButton } from "./components/RunButton";
 import { fetchMenu, fetchNutrient } from "./utils/ApiCall";
+import GLPK from "glpk.js";
+import { GLPK as IGLPK } from "glpk.js";
+
+interface Nutrient {
+  id: string;
+  name: string;
+  unit: string;
+  amount: number | null;
+}
+
+interface Menu {
+  id: string;
+  name: string;
+  price: number;
+  nutorients: Array<Nutrient>;
+}
+
+interface LPVariable {
+  name: string;
+  coef: number;
+}
 
 function App() {
-  const [menu, setMenu] = useState({});
-  const [nutorient, setNutorient] = useState({});
+  const [rawMenu, setMenu] = useState({});
+  const [rawNutorient, setNutorient] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,8 +41,93 @@ function App() {
     fetchData();
   }, []);
 
-  const runIP = () => {
-    console.log(menu, nutorient);
+  const _getMenu = (): Arra<Menu> => {
+    const menus: Array<Menu> = [];
+    const nutorientsTemplate: Nutrients = [];
+    for (const rawN of rawNutorient.data) {
+      const n: Nutrient = {
+        id: rawN.nutrient_id,
+        name: rawN.name,
+        unit: rawN.unit,
+        amount: null,
+      };
+      nutorientsTemplate.push(n);
+    }
+    for (const m of rawMenu.product_menu) {
+      menus.push({
+        id: m.id,
+        name: m.web_name,
+        price: Number(m.price),
+        nutorients: nutorientsTemplate,
+      });
+    }
+    console.log(menus);
+    return menus;
+  };
+
+  const _genObjectiveVars = (menus: Array<Menu>): Array<LPVariable> => {
+    const variable: Array<LPVariable> = [];
+    for (const menu of menus) {
+      variable.push({
+        name: menu.id,
+        coef: menu.price,
+      });
+    }
+    return variable;
+  };
+
+  const runIP = async () => {
+    console.log(rawMenu, rawNutorient);
+    const menu: Array<Menu> = _getMenu();
+    const objectiveVars = _genObjectiveVars(menu);
+    const glpk: IGLPK = await GLPK();
+
+    const options = {
+      msglev: glpk.GLP_MSG_ALL,
+      presol: true,
+      cb: {
+        call: (progress: any) => console.log(progress),
+        each: 1,
+      },
+    };
+    const up_to_one_constraints = objectiveVars.map((v) => {
+      return {
+        name: `upto_one_constraint_${v.name}`,
+        vars: [{ name: v.name, coef: 1.0 }],
+        bnds: { type: glpk.GLP_DB, ub: 1.0, lb: 0.0 },
+      };
+    });
+
+    const problem = {
+      name: "IP",
+      generals: objectiveVars.map((v) => v.name),
+      objective: {
+        direction: glpk.GLP_MIN,
+        name: "obj",
+        vars: objectiveVars,
+      },
+      subjectTo: [
+        ...up_to_one_constraints,
+        {
+          name: "five_items_constraint",
+          vars: objectiveVars.map((v) => {
+            return { name: v.name, coef: 1.0 };
+          }),
+          bnds: { type: glpk.GLP_DB, ub: 5.0, lb: 4.9 },
+        },
+      ],
+    };
+    console.log({ problem });
+    const p = await glpk.write(problem);
+    console.log(p);
+    const res = await glpk.solve(problem, options);
+    console.log(res.result);
+    Object.keys(res.result.vars).forEach((id) => {
+      const num = res.result.vars[id];
+      if (num > 0) {
+        console.log(id, num);
+      }
+    });
   };
 
   return (
