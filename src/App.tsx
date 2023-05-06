@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import "./App.css";
 import { RunButton } from "./components/RunButton";
 import { fetchMenu, fetchNutrient } from "./utils/ApiCall";
-import GLPK from "glpk.js";
-import { GLPK as IGLPK } from "glpk.js";
+import GLPKJS from "glpk.js";
+import type { GLPK } from "glpk.js";
 
 interface Nutrient {
   id: string;
@@ -25,9 +25,25 @@ interface LPVariable {
   coef: number;
 }
 
+interface RawMenu {
+  product_menu: Array<{
+    id: string;
+    web_name: string;
+    price: string;
+  }>;
+}
+
+interface RawNutrient {
+  data: Array<{
+    nutrient_id: string;
+    name: string;
+    unit: string;
+  }>;
+}
+
 function App() {
-  const [rawMenu, setMenu] = useState({});
-  const [rawNutorient, setNutorient] = useState({});
+  const [rawMenu, setMenu] = useState({} as RawMenu);
+  const [rawNutorient, setNutorient] = useState({} as RawNutrient);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,9 +57,9 @@ function App() {
     fetchData();
   }, []);
 
-  const _getMenu = (): Arra<Menu> => {
+  const _getMenu = (): Array<Menu> => {
     const menus: Array<Menu> = [];
-    const nutorientsTemplate: Nutrients = [];
+    const nutorientsTemplate: Array<Nutrient> = [];
     for (const rawN of rawNutorient.data) {
       const n: Nutrient = {
         id: rawN.nutrient_id,
@@ -80,7 +96,9 @@ function App() {
     console.log(rawMenu, rawNutorient);
     const menu: Array<Menu> = _getMenu();
     const objectiveVars = _genObjectiveVars(menu);
-    const glpk: IGLPK = await GLPK();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore glpk.jsのpackage.jsonのmainが無視されてdist/glpk.jsではなくdist/glpk.d.tsが読み込まれてエラーになる
+    const glpk: GLPK = await GLPKJS();
 
     const options = {
       msglev: glpk.GLP_MSG_ALL,
