@@ -2,7 +2,24 @@ import streamlit as st
 import sqlite3
 import pandas as pd
 from util.solver import get_data, solve
+import subprocess
 
+
+@st.cache_resource
+def init_data():
+    # ../scripts/init.sh スクリプトを実行してデータをダウンロード
+    result = subprocess.run(["./scripts/init.sh"], capture_output=True, text=True)
+
+    if result.returncode != 0:
+        st.error("スクリプトの実行に失敗しました。エラーメッセージ: " + result.stderr)
+        return False
+
+    return True
+
+
+if __name__ == "__main__":
+    if init_data():
+        st.success("データの初期化が完了しました。")
 
 # DB接続
 con = sqlite3.connect("./data/mcdonalds.sqlite")
