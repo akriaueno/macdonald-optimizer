@@ -1,19 +1,9 @@
-from datetime import datetime
-import time
 import streamlit as st
 import sqlite3
 import pandas as pd
 from util.solver import get_data, solve
-import logging
-from io import StringIO
 
 
-# Streamlitのログエリア用のセッション状態を初期化
-if "log" not in st.session_state:
-    st.session_state.log = StringIO()
-
-
-# Streamlitのテキストエリアにログを表示するカスタムロガーハンドラー
 # DB接続
 con = sqlite3.connect("./data/mcdonalds.sqlite")
 menus, nutrients, nutrient_types = get_data(con)
@@ -76,7 +66,6 @@ for nt in nutrient_targets:
 
 if st.button("最適化"):
     with st.spinner("計算中"):
-        # mip.loggerにカスタムハンドラーを設定
         result = solve(
             menus,
             nutrients,
@@ -87,7 +76,6 @@ if st.button("最適化"):
         )
 
     if result is not None:
-        # 結果のためのリストを作成
         rows = []
         total_price = 0
         for menu_id, num in result.items():
@@ -105,7 +93,6 @@ if st.button("最適化"):
             )
         rows.append(["合計", "", "", f"{round(total_price)}円"])
 
-        # リストからDataFrameを作成
         df = pd.DataFrame(rows, columns=["メニュー", "個数", "単価", "合計"])
         st.table(df)
 
