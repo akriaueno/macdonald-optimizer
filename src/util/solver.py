@@ -36,31 +36,49 @@ def get_data(con):
     return menus, nutrients, nutrient_types
 
 
-def solve(menus, nutrients, nutrient_targets):
-    m = mip.Model()
+def solve(
+    menus,
+    nutrients,
+    nutrient_limits,
+    nutrient_types,
+    exclude_zero_price=False,
+    max_items_per_menu=None,
+):
+    m = mip.Model(sense=mip.MINIMIZE)
     # Variables
     x = {id: m.add_var(name=f"{id}", var_type=mip.INTEGER) for id in menus.keys()}
+
     # Objective
-    m.objective = mip.minimize(
-        mip.xsum(val["price"] * x[id] for id, val in menus.items())
-    )
-    lb_diff = 0.1
-    ub_diff = 0.1
+    m.objective = mip.xsum(menus[id]["price"] * x[id] for id in menus.keys())
+
+    # 0円メニューを除外する制約
+    if exclude_zero_price:
+        for id, val in menus.items():
+            if val["price"] == 0:
+                m += x[id] == 0  # 0円のメニューの選択個数を0に制約
+
+    # 同じメニューの選択個数を制限する制約
+    if max_items_per_menu is not None:
+        for id in menus.keys():
+            m += x[id] <= max_items_per_menu  # 各メニューの最大選択個数に制約
+
     # Constraints
-    for nt in nutrient_targets:
-        nutrient_id = nt["id"]
-        target = nt["target"]
+    for nutrient_id, limits in nutrient_limits.items():
+        lb = limits["lb"]  # 下限値
+        ub = limits["ub"]  # 上限値
         m.add_constr(
             mip.xsum(
-                nutrients[menu_id][nutrient_id] * x[menu_id] for menu_id in menus.keys()
+                nutrients[menu_id].get(nutrient_id, 0) * x[menu_id]
+                for menu_id in menus.keys()
             )
-            >= target * (1 - lb_diff)
+            >= lb
         )
         m.add_constr(
             mip.xsum(
-                nutrients[menu_id][nutrient_id] * x[menu_id] for menu_id in menus.keys()
+                nutrients[menu_id].get(nutrient_id, 0) * x[menu_id]
+                for menu_id in menus.keys()
             )
-            <= target * (1 + ub_diff)
+            <= ub
         )
     m.optimize()
 
@@ -71,10 +89,11 @@ def solve(menus, nutrients, nutrient_targets):
         if v.x > 0.99:
             menu_id = int(v.name)
             result[menu_id] = v.x
+    print_result_nutrients(result, nutrients, nutrient_types)
     return result
 
 
-def print_result(menus, nutrients, nutrient_types, iresult):
+def print_result(menus, nutrients, nutrient_types, result):
     price = 0
     nutrient_values = {
         id: {"name": nt["name"], "value": 0} for id, nt in nutrient_types.items()
@@ -98,6 +117,35 @@ def print_result(menus, nutrients, nutrient_types, iresult):
     print(f"最安値: {round(price)}円")
 
 
+def check_constraint_satisfy(result, nutrient, nutrient_limits):
+    for nutrient_id, limits in nutrient_limits.items():
+        lb = limits["lb"]
+        ub = limits["ub"]
+        value = sum(
+            nutrient[menu_id].get(nutrient_id, 0) * num
+            for menu_id, num in result.items()
+        )
+        if value < lb or value > ub:
+            return False
+    return True
+
+
+def print_result_nutrients(result, nutrients, nutrient_types):
+    nutrient_values = {
+        id: {"name": nt["name"], "value": 0} for id, nt in nutrient_types.items()
+    }
+    for menu_id, num in result.items():
+        for nutrient_type_id, nt in nutrient_types.items():
+            nutrient_values[nutrient_type_id]["value"] += (
+                nutrients[menu_id][nutrient_type_id] * num
+            )
+    for nutrient_type_id, nutrient_value in nutrient_values.items():
+        name = nutrient_value["name"]
+        value = nutrient_value["value"]
+        unit = nutrient_types[nutrient_type_id]["unit"]
+        print(f"{name}: {value:.1f}{unit}")
+
+
 if __name__ == "__main__":
     db = "./data/mcdonalds.sqlite"
     con = sqlite3.connect(db)
@@ -117,7 +165,11 @@ if __name__ == "__main__":
         {"id": 17, "name": "食物繊維", "target": 19},
         {"id": 18, "name": "食塩相当量", "target": 7},
     ]
-    result = solve(menus, nutrients, nutrient_targets)
+    result = solve(
+        menus,
+        nutrients,
+        nutrient_targets,
+    )
     if result is None:
         print("no solution")
     else:
